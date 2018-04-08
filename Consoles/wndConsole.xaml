@@ -1,0 +1,31 @@
+﻿<Window x:Class="Consoles.wndConsole"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Consoles"
+        mc:Ignorable="d"
+		Loaded="Window_Loaded"
+        Title="Consoles" Height="300" Width="500" WindowStyle="ToolWindow">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<DataGrid Margin="2" AutoGenerateColumns="False"
+                  IsReadOnly="True" CanUserAddRows="False"
+                  HeadersVisibility="Column" Name="dgConsoles" OpacityMask="{x:Null}">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}" />
+				<DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Console_Name}" />
+				<DataGridTextColumn Header="Short Name" Width="*" Binding="{Binding Short_Name}" />
+				<DataGridTextColumn Header="Company" Width="*" Binding="{Binding company1.Company_Name}" />
+			</DataGrid.Columns>
+		</DataGrid>
+		<WrapPanel Grid.Row="1" HorizontalAlignment="Right">
+			<Button Click="Edit">Edit...</Button>
+			<Button Click="Eliminar">Delete</Button>
+			<Button Click="Agregar">Add...</Button>
+		</WrapPanel>
+	</Grid>
+</Window>

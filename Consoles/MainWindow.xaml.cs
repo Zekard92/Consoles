@@ -24,5 +24,21 @@ namespace Consoles
 		{
 			InitializeComponent ();
 		}
+
+		private void Consoles(object sender, RoutedEventArgs e)
+		{
+			wndConsole consoles = new wndConsole ();
+			Hide ();
+			consoles.ShowDialog ();
+			Show ();
+		}
+
+		private void Companies(object sender, RoutedEventArgs e)
+		{
+			wndCompany companies = new wndCompany ();
+			Hide ();
+			companies.ShowDialog ();
+			Show ();
+		}
 	}
 }

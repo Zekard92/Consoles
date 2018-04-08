@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_consolesModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Founded" Type="date" Nullable="false" />
+          <Property Name="Headquarters" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="console">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Console_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Short_Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Company" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Company_Console">
+          <End Role="company" Type="Self.company" Multiplicity="1" />
+          <End Role="console" Type="Self.console" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="console">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_consolesModelStoreContainer">
+          <EntitySet Name="company" EntityType="Self.company" Schema="db_consoles" store:Type="Tables" />
+          <EntitySet Name="console" EntityType="Self.console" Schema="db_consoles" store:Type="Tables" />
+          <AssociationSet Name="FK_Company_Console" Association="Self.FK_Company_Console">
+            <End Role="company" EntitySet="company" />
+            <End Role="console" EntitySet="console" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_consolesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Founded" Type="DateTime" Nullable="false" />
+          <Property Name="Headquarters" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="consoles" Relationship="Self.FK_Company_Console" FromRole="company" ToRole="console" />
+        </EntityType>
+        <EntityType Name="console">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Console_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Short_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Company" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="company1" Relationship="Self.FK_Company_Console" FromRole="console" ToRole="company" />
+        </EntityType>
+        <Association Name="FK_Company_Console">
+          <End Role="company" Type="Self.company" Multiplicity="1" />
+          <End Role="console" Type="Self.console" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="console">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_consolesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="companies" EntityType="Self.company" />
+          <EntitySet Name="consoles" EntityType="Self.console" />
+          <AssociationSet Name="FK_Company_Console" Association="Self.FK_Company_Console">
+            <End Role="company" EntitySet="companies" />
+            <End Role="console" EntitySet="consoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_consolesModelStoreContainer" CdmEntityContainer="db_consolesEntities">
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="db_consolesModel.company">
+              <MappingFragment StoreEntitySet="company">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="Founded" ColumnName="Founded" />
+                <ScalarProperty Name="Headquarters" ColumnName="Headquarters" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="consoles">
+            <EntityTypeMapping TypeName="db_consolesModel.console">
+              <MappingFragment StoreEntitySet="console">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Console_Name" ColumnName="Console_Name" />
+                <ScalarProperty Name="Short_Name" ColumnName="Short_Name" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

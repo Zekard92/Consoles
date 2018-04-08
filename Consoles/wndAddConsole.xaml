@@ -1,0 +1,36 @@
+﻿<Window x:Class="Consoles.wndAddConsole"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Consoles"
+        mc:Ignorable="d"
+		Loaded="Window_Loaded"
+        Title="Add Console" Height="180" Width="300" WindowStyle="ToolWindow">
+	<Grid Margin="4">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<!--First Column-->
+		<Label>Name:</Label>
+		<Label Grid.Row="1">Short Name:</Label>
+		<Label Grid.Row="2">Company:</Label>
+		<!--Second Column-->
+		<TextBox Grid.Column="1" Text="{Binding Console_Name}" />
+		<TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Short_Name}" />
+		<ComboBox Grid.Column="1" Grid.Row="2" Name="cmbCompany" SelectedValue="{Binding Company}" />
+		<!--Buttons-->
+		<WrapPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+			<Button Click="Add" Name="btnAdd">Add</Button>
+			<Button Click="Cancel">Cancel</Button>
+		</WrapPanel>
+	</Grid>
+</Window>
